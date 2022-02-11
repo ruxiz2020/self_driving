@@ -36,10 +36,14 @@ def mapping():
 
                 if (i < 90) & (data_dist < 30): # obstacle on the left
                     PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
+                    time.sleep(1)
+                    PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
                     #print("STOPPING!")
                     #PWM.setMotorModel(0,0,0,0)
                 elif (i >= 90) & (data_dist < 30): # obstacle on the left
                     PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
+                    time.sleep(1)
+                    PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
                 else:
                     PWM.setMotorModel(400,400,400,400) #Forward
                     print ("The car is moving forward")
