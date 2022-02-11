@@ -34,13 +34,13 @@ def mapping():
                 arr_dist.append((i, data_dist))
                 print(arr_dist)
 
-                if (i < 90) & (data_dist < 20): # obstacle on the left
+                if (i < 80) & (data_dist < 15): # obstacle on the left
                     PWM.setMotorModel(1000,1000,-1000,-1000) # turn right
                     time.sleep(1)
                     #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
                     #print("STOPPING!")
                     #PWM.setMotorModel(0,0,0,0)
-                elif (i >= 90) & (data_dist < 20): # obstacle on the left
+                elif (i >= 100) & (data_dist < 15): # obstacle on the left
                     PWM.setMotorModel(-1000,-1000,1000,1000) # turn Left
                     time.sleep(1)
                     #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
