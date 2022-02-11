@@ -34,6 +34,9 @@ def mapping():
                 arr_dist.append((i, data_dist))
                 print(arr_dist)
 
+                PWM.setMotorModel(400,400,400,400) #Forward
+                print ("The car is moving forward")
+
                 if (i < 90) & (data_dist < 20): # obstacle on the left
                     PWM.setMotorModel(1000,1000,-1000,-1000) # turn right
                     time.sleep(1)
