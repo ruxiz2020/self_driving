@@ -23,7 +23,7 @@ def mapping():
 
     try:
         while True:
-            for i in range(60, 180, 1):
+            for i in range(60, 140, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
@@ -38,7 +38,7 @@ def mapping():
                     PWM.setMotorModel(500,500,500,500) #Forward
                     print ("The car is moving forward")
 
-            for i in range(2180, 60, -1):
+            for i in range(140, 60, -1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
