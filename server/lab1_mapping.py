@@ -38,21 +38,20 @@ def mapping(distince_input):
 
     D = int(distince_input) # distince threshold for stopping
 
-    try:
-        while True:
-            for i in range(40, 160, 1):
-                pwm.setServoPwm('0', i)
-                time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(D, PWM)
+    while True:
+        for i in range(40, 160, 1):
+            pwm.setServoPwm('0', i)
+            time.sleep(0.01)
+            move_or_stop_according_to_detected_distance(D, PWM)
 
-            for i in range(160,40,-1):
-                pwm.setServoPwm('0',i)
-                time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(D, PWM)
+        for i in range(160,40,-1):
+            pwm.setServoPwm('0',i)
+            time.sleep(0.01)
+            move_or_stop_according_to_detected_distance(D, PWM)
 
-    except KeyboardInterrupt:
-        PWM.setMotorModel(0,0,0,0)
-        print ("\nEnd of program")
+    #except KeyboardInterrupt:
+    #    PWM.setMotorModel(0,0,0,0)
+    #    print ("\nEnd of program")
 
 
 # Main program logic follows:
