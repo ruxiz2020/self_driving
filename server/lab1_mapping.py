@@ -19,38 +19,24 @@ adc = Adc()
 buzzer = Buzzer()
 
 
-def move_or_stop_according_to_detected_distance(distince_input):
-
-    data=ultrasonic.get_distance()   #Get the distance value
-    print ("When servo is at "+str(i)+" degree")
-    print ("Obstacle distance is "+str(data)+" CM")
-
-    if data < distince_input:
-        print("STOPPING!")
-        PWM.setMotorModel(0,0,0,0)
-    else:
-        PWM.setMotorModel(500,500,500,500) #Forward
-        print ("The car is moving forward")
-
-
-def mapping(distince_input):
-
-    D = int(distince_input) # distince threshold for stopping
+def mapping():
 
     try:
         while True:
-            for i in range(40, 160, 1):
+            for i in range(60, 180, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(distince_input)
 
-            for i in range(160,40,-1):
-                pwm.setServoPwm('0',i)
-                time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(distince_input)
+                data=ultrasonic.get_distance()   #Get the distance value
+                print ("When servo is at "+str(i)+" degree")
+                print ("Obstacle distance is "+str(data)+" CM")
 
-
-
+                if data < 50:
+                    print("STOPPING!")
+                    PWM.setMotorModel(0,0,0,0)
+                else:
+                    PWM.setMotorModel(500,500,500,500) #Forward
+                    print ("The car is moving forward")
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
@@ -63,8 +49,4 @@ if __name__ == '__main__':
     print ('Mapping is starting ...')
     import sys
 
-    try:
-        dist = sys.argv[1]
-        mapping(dist)
-    except:
-        print("Please input a distinct theshold for stopping!")
+    mapping()
