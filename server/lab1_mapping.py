@@ -21,28 +21,32 @@ buzzer = Buzzer()
 
 def mapping():
 
-    while True:
-        for i in range(60, 180, 1):
-            pwm.setServoPwm('0', i)
-            time.sleep(0.01)
+    try:
+        while True:
+            for i in range(60, 180, 1):
+                pwm.setServoPwm('0', i)
+                time.sleep(0.01)
 
-            data=ultrasonic.get_distance()   #Get the distance value
-            print ("When servo is at "+str(i)+" degree")
-            print ("Obstacle distance is "+str(data)+" CM")
+                data=ultrasonic.get_distance()   #Get the distance value
+                print ("When servo is at "+str(i)+" degree")
+                print ("Obstacle distance is "+str(data)+" CM")
 
-            if data < 50:
-                print("STOPPING!")
-                PWM.setMotorModel(0,0,0,0)
-            else:
-                PWM.setMotorModel(500,500,500,500) #Forward
-                print ("The car is moving forward")
+                if data < 50:
+                    print("STOPPING!")
+                    PWM.setMotorModel(0,0,0,0)
+                else:
+                    PWM.setMotorModel(500,500,500,500) #Forward
+                    print ("The car is moving forward")
+
+    except KeyboardInterrupt:
+        PWM.setMotorModel(0,0,0,0)
+        print ("\nEnd of program")
 
 
 # Main program logic follows:
 if __name__ == '__main__':
 
-    print ('Program is starting ... ')
+    print ('Mapping is starting ...')
     import sys
 
-    if sys.argv[1] == 'Mapping is starting ...':
-        mapping()
+    mapping()
