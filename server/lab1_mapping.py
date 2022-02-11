@@ -40,7 +40,7 @@ def create_matrix_input_for_astar_algo(arr_coordinates):
     M = [[0 for col in range(101)] for row in range(101)] # matrix of size 101 * 101
     for (x, y) in arr_coordinates:
         if (x + 50 >= 0) & (x + 50 <= 100) & (y >= 0) & (y < 100): # leave the furthest line all zero
-            M[x + 50, y] = 1
+            M[y][x + 50] = 1
     return M
 
 def mapping():
@@ -63,8 +63,8 @@ def mapping():
                     arr_coordinates = [convert_angle_dist_2_cat(x, y) for x, y in arr_dist]
                     map = create_matrix_input_for_astar_algo(arr_coordinates)
 
-                    start = [50, 100] # starting position
-                    end = [50, 0] # ending position
+                    start = [50, 0] # starting position
+                    end = [50, 100] # ending position
                     cost = 1 # cost per movement
                     path = aster_search(map, cost, start, end)
 
