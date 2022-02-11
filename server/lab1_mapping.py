@@ -38,7 +38,7 @@ def mapping():
                     print("STOPPING!")
                     PWM.setMotorModel(0,0,0,0)
                 else:
-                    PWM.setMotorModel(500,500,500,500) #Forward
+                    PWM.setMotorModel(400,400,400,400) #Forward
                     print ("The car is moving forward")
 
 
