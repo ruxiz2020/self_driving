@@ -11,7 +11,6 @@ from Thread import *
 
 
 led = Led()
-PWM = Motor()
 ultrasonic = Ultrasonic()
 line = Line_Tracking()
 pwm = Servo()
@@ -19,7 +18,7 @@ adc = Adc()
 buzzer = Buzzer()
 
 
-def move_or_stop_according_to_detected_distance(distince_input):
+def move_or_stop_according_to_detected_distance(distince_input, PWM):
 
     data=ultrasonic.get_distance()   #Get the distance value
     print ("When servo is at "+str(i)+" degree")
@@ -35,6 +34,8 @@ def move_or_stop_according_to_detected_distance(distince_input):
 
 def mapping(distince_input):
 
+    PWM = Motor()
+
     D = int(distince_input) # distince threshold for stopping
 
     try:
@@ -42,12 +43,12 @@ def mapping(distince_input):
             for i in range(40, 160, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(D)
+                move_or_stop_according_to_detected_distance(D, PWM)
 
             for i in range(160,40,-1):
                 pwm.setServoPwm('0',i)
                 time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(D)
+                move_or_stop_according_to_detected_distance(D, PWM)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
