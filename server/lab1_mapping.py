@@ -7,7 +7,7 @@ from servo import *
 from ADC import *
 from Buzzer import *
 from Thread import *
-from threading import Thread
+#from threading import Thread
 
 
 led = Led()
