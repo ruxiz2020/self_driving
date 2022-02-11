@@ -42,15 +42,12 @@ def mapping(distince_input):
             for i in range(40, 160, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(distince_input)
+                move_or_stop_according_to_detected_distance(D)
 
             for i in range(160,40,-1):
                 pwm.setServoPwm('0',i)
                 time.sleep(0.01)
-                move_or_stop_according_to_detected_distance(distince_input)
-
-
-
+                move_or_stop_according_to_detected_distance(D)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
