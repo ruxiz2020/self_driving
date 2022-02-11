@@ -31,6 +31,8 @@ def move_or_stop_according_to_detected_distance(degree, distince_input, PWM):
         PWM.setMotorModel(500,500,500,500) #Forward
         print ("The car is moving forward")
 
+    return (degree, data)
+
 
 def mapping(distince_input):
 
@@ -39,15 +41,19 @@ def mapping(distince_input):
     D = int(distince_input) # distince threshold for stopping
 
     while True:
+        array_distances = []
         for i in range(40, 160, 1):
             pwm.setServoPwm('0', i)
             time.sleep(0.01)
-            move_or_stop_according_to_detected_distance(i, D, PWM)
+            (degree, dist) = move_or_stop_according_to_detected_distance(i, D, PWM)
+            array_distances.append(degree, dist)
 
-        for i in range(160,40,-1):
-            pwm.setServoPwm('0',i)
+        for i in range(160, 40, -1):
+            pwm.setServoPwm('0', i)
             time.sleep(0.01)
-            move_or_stop_according_to_detected_distance(i, D, PWM)
+            (degree, dist) = move_or_stop_according_to_detected_distance(i, D, PWM)
+            array_distances.append(degree, dist)
+        print(array_distances)
 
     #except KeyboardInterrupt:
     #    PWM.setMotorModel(0,0,0,0)
