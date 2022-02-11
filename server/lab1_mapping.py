@@ -31,7 +31,7 @@ def mapping():
                 data_dist=ultrasonic.get_distance()   #Get the distance value
                 #print ("When servo is at "+str(i)+" degree")
                 #print ("Obstacle distance is "+str(data)+" CM")
-                arr_dist.append(i, data_dist)
+                arr_dist.append((i, data_dist))
                 print(arr_dist)
 
                 if data < 30:
