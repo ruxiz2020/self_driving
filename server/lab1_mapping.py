@@ -24,7 +24,7 @@ def mapping():
     try:
         while True:
             arr_dist = []
-            for i in range(30, 150, 1):
+            for i in range(20, 140, 2):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
