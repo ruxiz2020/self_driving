@@ -19,7 +19,9 @@ adc = Adc()
 buzzer = Buzzer()
 
 
-def mapping():
+def mapping(distince_input):
+
+    D = int(distince_input) # distince threshold for stopping
 
     try:
         while True:
@@ -31,7 +33,7 @@ def mapping():
                 print ("When servo is at "+str(i)+" degree")
                 print ("Obstacle distance is "+str(data)+" CM")
 
-                if data < 50:
+                if data < D:
                     print("STOPPING!")
                     PWM.setMotorModel(0,0,0,0)
                 else:
@@ -49,4 +51,8 @@ if __name__ == '__main__':
     print ('Mapping is starting ...')
     import sys
 
-    mapping()
+    try:
+        dist = sys.argv[1]
+        mapping(dist)
+    except:
+        print("Please input a distinct theshold for stopping!")
