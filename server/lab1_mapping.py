@@ -23,7 +23,7 @@ def mapping():
 
     try:
         while True:
-            for i in range(60, 140, 1):
+            for i in range(30, 150, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
@@ -38,20 +38,6 @@ def mapping():
                     PWM.setMotorModel(500,500,500,500) #Forward
                     print ("The car is moving forward")
 
-            for i in range(140, 60, -1):
-                pwm.setServoPwm('0', i)
-                time.sleep(0.01)
-
-                data=ultrasonic.get_distance()   #Get the distance value
-                print ("When servo is at "+str(i)+" degree")
-                print ("Obstacle distance is "+str(data)+" CM")
-
-                if data < 50:
-                    print("STOPPING!")
-                    PWM.setMotorModel(0,0,0,0)
-                else:
-                    PWM.setMotorModel(500,500,500,500) #Forward
-                    print ("The car is moving forward")
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
