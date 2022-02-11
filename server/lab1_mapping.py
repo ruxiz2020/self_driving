@@ -20,12 +20,17 @@ buzzer = Buzzer()
 
 def move_or_stop_according_to_detected_distance(degree, distince_input, PWM):
 
+    pwm.setServoPwm('0', degree)
+    time.sleep(0.01)
+
     data=ultrasonic.get_distance()   #Get the distance value
     print ("When servo is at "+str(degree)+" degree")
     print ("Obstacle distance is "+str(data)+" CM")
 
     if data < distince_input:
         print("STOPPING!")
+        pwm.setServoPwm('0', 90)
+        time.sleep(0.01)
         PWM.setMotorModel(0,0,0,0)
     else:
         PWM.setMotorModel(500,500,500,500) #Forward
@@ -43,14 +48,12 @@ def mapping(distince_input):
     while True:
         array_distances = []
         for i in range(40, 160, 1):
-            pwm.setServoPwm('0', i)
-            time.sleep(0.01)
+
             (degree, dist) = move_or_stop_according_to_detected_distance(i, D, PWM)
             array_distances.append(degree, dist)
 
         for i in range(160, 40, -1):
-            pwm.setServoPwm('0', i)
-            time.sleep(0.01)
+
             (degree, dist) = move_or_stop_according_to_detected_distance(i, D, PWM)
             array_distances.append(degree, dist)
         print(array_distances)
