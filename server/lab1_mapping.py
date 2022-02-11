@@ -1,0 +1,106 @@
+import time
+from Led import *
+from Motor import *
+from Ultrasonic import *
+from Line_Tracking import *
+from servo import *
+from ADC import *
+from Buzzer import *
+from aster_search import *
+from Thread import *
+#from threading import Thread
+import math
+import cmath
+
+
+led = Led()
+PWM = Motor()
+ultrasonic = Ultrasonic()
+line = Line_Tracking()
+pwm = Servo()
+adc = Adc()
+buzzer = Buzzer()
+
+
+
+
+
+def convert_angle_dist_2_cat(angle, dist):
+    r = angle * math.pi / 180
+    y = math.sin(r) * dist
+    x = math.sqrt(dist ** 2 - y ** 2)
+
+    if angle < 90:
+        x = abs(x) * -1
+    return int(x), int(y)
+
+
+def create_matrix_input_for_astar_algo(arr_coordinates):
+
+    M = [[0 for col in range(101)] for row in range(101)] # matrix of size 101 * 101
+    for (x, y) in arr_coordinates:
+        if (x + 50 >= 0) & (x + 50 <= 100) & (y >= 0) & (y < 100): # leave the furthest line all zero
+            M[x + 50, y] = 1
+    return M
+
+def mapping():
+
+    try:
+        while True:
+            arr_dist = []
+            for i in range(20, 120, 2):
+                pwm.setServoPwm('0', i)
+                time.sleep(0.01)
+
+                data_dist=ultrasonic.get_distance()   #Get the distance value
+                #print ("When servo is at "+str(i)+" degree")
+                #print ("Obstacle distance is "+str(data)+" CM")
+                arr_dist.append((data_dist, i))
+                #print(arr_dist)
+                if len(arr_dist) > 40:
+                    PWM.setMotorModel(0,0,0,0)
+                    time.sleep(5)
+                    arr_coordinates = [convert_angle_dist_2_cat(x, y) for x, y in arr_dist]
+                    map = create_matrix_input_for_astar_algo(arr_coordinates)
+
+                    start = [50, 100] # starting position
+                    end = [50, 0] # ending position
+                    cost = 1 # cost per movement
+                    path = aster_search(map, cost, start, end)
+
+                    print(path)
+
+                PWM.setMotorModel(400,400,400,400) #Forward
+                print ("The car is moving forward")
+
+                if (i < 90) & (data_dist < 20): # obstacle on the left
+                    PWM.setMotorModel(1000,1000,-500,-500) # turn right
+                    time.sleep(1)
+                    #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
+                    #print("STOPPING!")
+                    #PWM.setMotorModel(0,0,0,0)
+                elif (i >= 90) & (data_dist < 20): # obstacle on the left
+                    PWM.setMotorModel(-500,-500,1000,1000) # turn Left
+                    time.sleep(1)
+                    #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
+                #elif (data_dist < 5): # obstacle in front
+                #    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
+                #    print ("The car is going backwards")
+                #    time.sleep(1)
+                else:
+                    PWM.setMotorModel(400,400,400,400) #Forward
+                    print ("The car is moving forward")
+
+
+    except KeyboardInterrupt:
+        PWM.setMotorModel(0,0,0,0)
+        print ("\nEnd of program")
+
+
+# Main program logic follows:
+if __name__ == '__main__':
+
+    print ('Mapping is starting ...')
+    import sys
+
+    mapping()
