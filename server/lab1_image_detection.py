@@ -9,6 +9,11 @@ from Buzzer import *
 from Thread import *
 #from threading import Thread
 
+from picamera import PiCamera
+from time import sleep
+camera = PiCamera()
+
+
 
 led = Led()
 PWM = Motor()
@@ -37,20 +42,11 @@ def run():
                 PWM.setMotorModel(400,400,400,400) #Forward
                 print ("The car is moving forward")
 
-                if (i < 90) & (data_dist < 20): # obstacle on the left
-                    PWM.setMotorModel(1000,1000,-500,-500) # turn right
+                if (i > 70) & (i < 110) & (data_dist < 15): # obstacle on the left
+                    PWM.setMotorModel(0,0,0,0)
                     time.sleep(1)
-                    #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
-                    #print("STOPPING!")
-                    #PWM.setMotorModel(0,0,0,0)
-                elif (i >= 90) & (data_dist < 20): # obstacle on the left
-                    PWM.setMotorModel(-500,-500,1000,1000) # turn Left
-                    time.sleep(1)
-                    #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
-                #elif (data_dist < 5): # obstacle in front
-                #    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
-                #    print ("The car is going backwards")
-                #    time.sleep(1)
+                    camera.capture('sign.jpg')
+
                 else:
                     PWM.setMotorModel(400,400,400,400) #Forward
                     print ("The car is moving forward")

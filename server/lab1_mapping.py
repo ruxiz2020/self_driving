@@ -25,7 +25,7 @@ buzzer = Buzzer()
 
 
 
-def convert_angle_dist_2_cat(angle, dist):
+def convert_angle_dist_2_coord(angle, dist):
     r = angle * math.pi / 180
     y = math.sin(r) * dist
     x = math.sqrt(dist ** 2 - y ** 2)
@@ -60,7 +60,7 @@ def mapping():
                 if len(arr_dist) > 40:
                     PWM.setMotorModel(0,0,0,0)
                     time.sleep(5)
-                    arr_coordinates = [convert_angle_dist_2_cat(x, y) for x, y in arr_dist]
+                    arr_coordinates = [convert_angle_dist_2_coord(x, y) for x, y in arr_dist]
                     map = create_matrix_input_for_astar_algo(arr_coordinates)
 
                     start = [50, 0] # starting position
