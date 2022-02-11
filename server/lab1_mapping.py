@@ -37,9 +37,9 @@ def convert_angle_dist_2_cat(angle, dist):
 
 def create_matrix_input_for_astar_algo(arr_coordinates):
 
-    M = [[0 for col in range(101)] for row in range(101)] # matrix of size 101 * 101
+    M = [[0 for col in range(11)] for row in range(11)] # matrix of size 11 * 11
     for (x, y) in arr_coordinates:
-        if (x + 50 >= 0) & (x + 50 <= 100) & (y >= 0) & (y < 100): # leave the furthest line all zero
+        if (x + 5 >= 0) & (x + 5 <= 10) & (y >= 0) & (y < 10): # leave the furthest line all zero
             M[y][x + 50] = 1
     return M
 
