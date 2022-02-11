@@ -6,7 +6,7 @@ from Line_Tracking import *
 from servo import *
 from ADC import *
 from Buzzer import *
-from aster_search import *
+from astar_search import *
 from Thread import *
 #from threading import Thread
 import math
