@@ -34,7 +34,7 @@ def mapping():
                 arr_dist.append((i, data_dist))
                 print(arr_dist)
 
-                if arr_dist < 30:
+                if data_dist < 30:
                     print("STOPPING!")
                     PWM.setMotorModel(0,0,0,0)
                 else:
