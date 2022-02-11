@@ -64,4 +64,5 @@ if __name__ == '__main__':
         dist = sys.argv[1]
         mapping(dist)
     except:
+        print(sys.argv[1])
         print("Please input a distinct theshold for stopping!")
