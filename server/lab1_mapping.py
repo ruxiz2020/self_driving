@@ -66,6 +66,7 @@ def mapping():
                     start = [50, 0] # starting position
                     end = [50, 100] # ending position
                     cost = 1 # cost per movement
+                    print(map)
                     path = aster_search(map, cost, start, end)
 
                     print(path)
