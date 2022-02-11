@@ -23,15 +23,18 @@ def mapping():
 
     try:
         while True:
+            arr_dist = []
             for i in range(30, 150, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
-                data=ultrasonic.get_distance()   #Get the distance value
-                print ("When servo is at "+str(i)+" degree")
-                print ("Obstacle distance is "+str(data)+" CM")
+                data_dist=ultrasonic.get_distance()   #Get the distance value
+                #print ("When servo is at "+str(i)+" degree")
+                #print ("Obstacle distance is "+str(data)+" CM")
+                arr_dist.append(i, data_dist)
+                print(arr_dist)
 
-                if data < 50:
+                if data < 30:
                     print("STOPPING!")
                     PWM.setMotorModel(0,0,0,0)
                 else:
