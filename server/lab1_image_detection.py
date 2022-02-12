@@ -42,7 +42,9 @@ def run():
                     PWM.setMotorModel(0,0,0,0) # stop
                     time.sleep(1)
                     #camera.capture('sign.jpg') # take picture
-                    detections = run_detection('efficientdet_lite0.tflite') # object detection
+                    detections = run_detection(model='efficientdet_lite0.tflite',
+                                                cameraId=0,frameHeight=480,
+                                                numThreads=4,enableEdgeTPU=False) # object detection
                     print(detections)
 
                 else:
