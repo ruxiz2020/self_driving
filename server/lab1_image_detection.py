@@ -43,8 +43,8 @@ def run():
                     time.sleep(1)
                     #camera.capture('sign.jpg') # take picture
                     detections = run_detection(model='efficientdet_lite0.tflite',
-                                                cameraId=0,frameHeight=480,
-                                                numThreads=4,enableEdgeTPU=False) # object detection
+                                                camera_id=0,height=480,width=640,
+                                                num_threads=4,enable_edgetpu=False) # object detection
                     print(detections)
 
                 else:
