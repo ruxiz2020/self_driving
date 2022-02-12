@@ -63,13 +63,17 @@ def mapping():
                     arr_coordinates = [convert_angle_dist_2_coord(x, y) for x, y in arr_dist]
                     map = create_matrix_input_for_astar_algo(arr_coordinates)
 
-                    start = [50, 0] # starting position
-                    end = [50, 100] # ending position
-                    cost = 1 # cost per movement
-                    print(map)
-                    path = aster_search(map, cost, start, end)
 
-                    print(path)
+
+                    if sum(sum(map,[])) > 0:
+                        start = [50, 0] # starting position
+                        end = [50, 100] # ending position
+                        cost = 1 # cost per movement
+                        print(map)
+                        
+                        path = aster_search(map, cost, start, end)
+
+                        print(path)
 
                 PWM.setMotorModel(400,400,400,400) #Forward
                 print ("The car is moving forward")

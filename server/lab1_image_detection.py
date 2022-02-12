@@ -11,8 +11,8 @@ from Thread import *
 
 from picamera import PiCamera
 from time import sleep
-camera = PiCamera()
-from detect import *
+#camera = PiCamera()
+#from detect import *
 
 
 
@@ -41,11 +41,11 @@ def run():
                 if (data_dist < 20):
                     PWM.setMotorModel(0,0,0,0) # stop
                     time.sleep(1)
-                    #camera.capture('sign.jpg') # take picture
-                    detections = run_detection(model='efficientdet_lite0.tflite',
-                                                camera_id=0,height=480,width=640,
-                                                num_threads=4,enable_edgetpu=False) # object detection
-                    print(detections)
+                    camera.capture('sign.jpg') # take picture
+                    #detections = run_detection(model='efficientdet_lite0.tflite',
+                    #                            camera_id=0,height=480,width=640,
+                    #                            num_threads=4,enable_edgetpu=False) # object detection
+                    #print(detections)
 
                 else:
                     PWM.setMotorModel(400,400,400,400) #Forward
