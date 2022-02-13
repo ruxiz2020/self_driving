@@ -90,10 +90,10 @@ def mapping():
                                 PWM.setMotorModel(400,400,400,400) #Forward
                                 time.sleep(1)
                             if d == 'L':
-                                PWM.setMotorModel(-500,-500,1000,1000) # turn Left
+                                PWM.setMotorModel(-800,-800,1000,1000) # turn Left
                                 time.sleep(1)
                             if d == 'R':
-                                PWM.setMotorModel(1000,1000,-500,-500) # turn right
+                                PWM.setMotorModel(1000,1000,-800,-800) # turn right
                                 time.sleep(1)
 
                 PWM.setMotorModel(400,400,400,400) #Forward
