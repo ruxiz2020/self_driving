@@ -42,10 +42,20 @@ def run():
                     PWM.setMotorModel(0,0,0,0) # stop
                     time.sleep(1)
                     #camera.capture('sign.jpg') # take picture
+                    
+                    # The following line is a hack to use the detection output from
+                    # calling object detection from tensorflow, but it is buggy,
+                    # It runs but there is lots of warning complaining about GStream (no time to fix)
                     detections = run_detection(model='efficientdet_lite0.tflite',
                                                 camera_id=0,height=480,width=640,
                                                 num_threads=4,enable_edgetpu=False) # object detection
                     print(detections)
+                    detect_results = [d[1][0][0] for d in detections]
+                    if any('stop' in item for item in detect_results): # check if any of the detection label contains stop
+                        PWM.setMotorModel(0,0,0,0) # stop
+                        time.sleep(1)
+                        PWM.setMotorModel(1000,1000,-500,-500) # turn right
+                        time.sleep(1)
 
                 else:
                     PWM.setMotorModel(400,400,400,400) #Forward

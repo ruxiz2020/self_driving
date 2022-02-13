@@ -33,11 +33,26 @@ def return_path(current_node,map):
     # Return reversed path as we need to show from start to end path
     path = path[::-1]
     start_value = 0
+
+    print(path)
+    car_directions = []
     # we update the path of start to end found by A-star serch with every step incremented by 1
     for i in range(len(path)):
+        
+        if i == 0:
+            car_directions.append('F')
+        else:
+            if (path[i][0] != path[i - 1][0]):
+                car_directions.append('F')
+            if (path[i][0] == path[i - 1][0]) & (path[i][1] > path[i - 1][1]):
+                car_directions.append('R')
+            if (path[i][0] == path[i - 1][0]) & (path[i][1] < path[i - 1][1]):
+                car_directions.append('L')
+
+
         result[path[i][0]][path[i][1]] = start_value
         start_value += 1
-    return result
+    return result, car_directions
 
 
 def aster_search(map, cost, start, end):
@@ -173,5 +188,6 @@ if __name__ == '__main__':
     end = [0,2] # ending position
     cost = 1 # cost per movement
 
-    path = aster_search(map,cost, start, end)
+    path, car_directions = aster_search(map,cost, start, end)
     print(path)
+    print(car_directions)

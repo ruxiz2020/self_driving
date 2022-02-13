@@ -26,6 +26,10 @@ buzzer = Buzzer()
 
 
 def convert_angle_dist_2_coord(angle, dist):
+    '''
+    This function converts ultrasonic data
+    into coordinates x, y
+    '''
     r = angle * math.pi / 180
     y = math.sin(r) * dist
     x = math.sqrt(dist ** 2 - y ** 2)
@@ -36,12 +40,19 @@ def convert_angle_dist_2_coord(angle, dist):
 
 
 def create_matrix_input_for_astar_algo(arr_coordinates):
+    '''
+    This function converts coordinates matrix into binary matrix
+    as the input data of A* algorithm
+    '''
 
     M = [[0 for col in range(11)] for row in range(11)] # matrix of size 11 * 11
     for (x, y) in arr_coordinates:
         if (x + 5 >= 0) & (x + 5 <= 10) & (y >= 0) & (y < 10): # leave the furthest line all zero
             M[y][x + 50] = 1
     return M
+
+
+
 
 def mapping():
 
@@ -64,16 +75,26 @@ def mapping():
                     map = create_matrix_input_for_astar_algo(arr_coordinates)
 
 
-
                     if sum(sum(map,[])) > 0:
                         start = [50, 0] # starting position
                         end = [50, 100] # ending position
                         cost = 1 # cost per movement
                         print(map)
-                        
-                        path = aster_search(map, cost, start, end)
 
-                        print(path)
+                        path, directions = aster_search(map, cost, start, end)
+
+                        print(directions)
+
+                        for d in directions:
+                            if d == 'F':
+                                PWM.setMotorModel(400,400,400,400) #Forward
+                                time.sleep(1)
+                            if d == 'L':
+                                PWM.setMotorModel(-500,-500,1000,1000) # turn Left
+                                time.sleep(1)
+                            if d == 'R':
+                                PWM.setMotorModel(1000,1000,-500,-500) # turn right
+                                time.sleep(1)
 
                 PWM.setMotorModel(400,400,400,400) #Forward
                 print ("The car is moving forward")
