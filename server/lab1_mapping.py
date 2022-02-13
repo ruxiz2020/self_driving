@@ -68,9 +68,9 @@ def mapping():
                 #print ("Obstacle distance is "+str(data)+" CM")
                 arr_dist.append((data_dist, i))
                 #print(arr_dist)
-                if len(arr_dist) > 40:
+                if len(arr_dist) > 20:
                     PWM.setMotorModel(0,0,0,0)
-                    time.sleep(5)
+                    time.sleep(1)
                     arr_coordinates = [convert_angle_dist_2_coord(x, y) for x, y in arr_dist]
                     map = create_matrix_input_for_astar_algo(arr_coordinates)
 
