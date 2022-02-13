@@ -24,11 +24,11 @@ def run():
     try:
         while True:
             arr_dist = []
-            for i in range(20, 120, 2):
+            for i in range(20, 160, 2):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
-                buzzer.run('0')
+                #buzzer.run('0')
 
                 data_dist=ultrasonic.get_distance()   #Get the distance value
                 #print ("When servo is at "+str(i)+" degree")
