@@ -61,7 +61,7 @@ def mapping():
             arr_dist = []
             for i in range(20, 120, 2):
                 pwm.setServoPwm('0', i)
-                time.sleep(0.01)
+                #time.sleep(0.01)
 
                 data_dist=ultrasonic.get_distance()   #Get the distance value
                 #print ("When servo is at "+str(i)+" degree")
@@ -70,7 +70,7 @@ def mapping():
                 #print(arr_dist)
                 if len(arr_dist) > 10:
                     PWM.setMotorModel(0,0,0,0)
-                    time.sleep(1)
+                    #time.sleep(1)
                     arr_coordinates = [convert_angle_dist_2_coord(x, y) for x, y in arr_dist]
                     map = create_matrix_input_for_astar_algo(arr_coordinates)
 
