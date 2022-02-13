@@ -68,7 +68,7 @@ def mapping():
                 #print ("Obstacle distance is "+str(data)+" CM")
                 arr_dist.append((data_dist, i))
                 #print(arr_dist)
-                if len(arr_dist) > 20:
+                if len(arr_dist) > 10:
                     PWM.setMotorModel(0,0,0,0)
                     time.sleep(1)
                     arr_coordinates = [convert_angle_dist_2_coord(x, y) for x, y in arr_dist]
