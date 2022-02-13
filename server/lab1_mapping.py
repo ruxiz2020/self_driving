@@ -59,7 +59,7 @@ def mapping():
     try:
         while True:
             arr_dist = []
-            for i in range(20, 120, 2):
+            for i in range(40, 140, 2):
                 pwm.setServoPwm('0', i)
                 #time.sleep(0.01)
 
