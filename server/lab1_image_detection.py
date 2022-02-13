@@ -30,7 +30,7 @@ def run():
     try:
         while True:
             arr_dist = []
-            for i in range(20, 120, 2):
+            for i in range(30, 140, 2):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
@@ -40,7 +40,7 @@ def run():
                 data_dist=ultrasonic.get_distance()   #Get the distance value
                 if (data_dist < 20):
                     PWM.setMotorModel(0,0,0,0) # stop
-                    time.sleep(1)
+                    time.sleep(0.1)
                     #camera.capture('sign.jpg') # take picture
 
                     # The following line is a hack to use the detection output of
