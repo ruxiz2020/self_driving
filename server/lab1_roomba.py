@@ -28,6 +28,8 @@ def run():
                 pwm.setServoPwm('0', i)
                 time.sleep(0.01)
 
+                buzzer.run('0')
+
                 data_dist=ultrasonic.get_distance()   #Get the distance value
                 #print ("When servo is at "+str(i)+" degree")
                 #print ("Obstacle distance is "+str(data)+" CM")

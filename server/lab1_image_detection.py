@@ -42,8 +42,8 @@ def run():
                     PWM.setMotorModel(0,0,0,0) # stop
                     time.sleep(1)
                     #camera.capture('sign.jpg') # take picture
-                    
-                    # The following line is a hack to use the detection output from
+
+                    # The following line is a hack to use the detection output of
                     # calling object detection from tensorflow, but it is buggy,
                     # It runs but there is lots of warning complaining about GStream (no time to fix)
                     detections = run_detection(model='efficientdet_lite0.tflite',
