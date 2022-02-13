@@ -40,13 +40,13 @@ def run():
                 print ("The car is moving forward")
 
                 if (i < 90) & (data_dist < 25): # obstacle on the left
-                    PWM.setMotorModel(1000,1000,-500,-500) # turn right
+                    PWM.setMotorModel(1200,1200,-800,-800) # turn right
                     time.sleep(1)
                     #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
                     #print("STOPPING!")
                     #PWM.setMotorModel(0,0,0,0)
                 elif (i >= 90) & (data_dist < 25): # obstacle on the left
-                    PWM.setMotorModel(-500,-500,1000,1000) # turn Left
+                    PWM.setMotorModel(-800,-800,1200,1200) # turn Left
                     time.sleep(1)
                     #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
                 #elif (data_dist < 5): # obstacle in front
