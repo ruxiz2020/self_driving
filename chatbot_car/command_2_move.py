@@ -1,15 +1,22 @@
 import speech_recognition as sr
+
 from audio_2_text import audio_2_text
 
-from Motor import *
+from Ultrasonic import Ultrasonic
+from Motor import Motor
 PWM=Motor()
-
+ultrasonic = Ultrasonic()
 
 def forward():
     try:
         PWM.setMotorModel(600,600,600,600)       #Forward
         print ("The car is moving forward")
         time.sleep(1)
+
+        data_dist=ultrasonic.get_distance()   #Get the distance value
+        if data_dist < 3:
+            PWM.setMotorModel(0,0,0,0)
+            time.sleep(1)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
@@ -29,6 +36,8 @@ def stop():
 
 def command_2_mode():
 
+    for i in range(10):
+        
         listener = sr.Recognizer()
         # Following two lines are meant to fix error about ALSA
         listener.energy_threshold = 384
