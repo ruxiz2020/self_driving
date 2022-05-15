@@ -64,6 +64,6 @@ if __name__ == '__main__':
 
         question = None
         while question == None:
-            question = audio_2_text(r)
+            question = audio_2_text(listener)
 
         q_n_a(question, model, tokenizer)
