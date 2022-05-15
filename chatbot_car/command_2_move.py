@@ -8,42 +8,13 @@ PWM=Motor()
 ultrasonic = Ultrasonic()
 
 def forward(data_dist):
+    global PWM
     try:
-        PWM.setMotorModel(600,600,600,600)       #Forward
+        PWM.setMotorModel(700,700,700,700)       #Forward
         print ("The car is moving forward")
-        time.sleep(5)
+        time.sleep(8)
 
-        #if data_dist < 1:
-        #    PWM.setMotorModel(0,0,0,0)
-        #    time.sleep(1)
-
-    except KeyboardInterrupt:
-        PWM.setMotorModel(0,0,0,0)
-        print ("\nEnd of program")
-
-
-def left(data_dist):
-    try:
-        PWM.setMotorModel(-1500,-1500,2000,2000)       #Left
-        print ("The car is turning left")
-        time.sleep(1)
-
-        #if data_dist < 1:
-        #    PWM.setMotorModel(0,0,0,0)
-        #    time.sleep(1)
-
-    except KeyboardInterrupt:
-        PWM.setMotorModel(0,0,0,0)
-        print ("\nEnd of program")
-
-
-def stop(data_dist):
-    try:
-        PWM.setMotorModel(0,0,0,0)                   #Stop
-        print ("\nEnd of program")
-        time.sleep(1)
-
-        if data_dist < 3:
+        if data_dist < 1:
             PWM.setMotorModel(0,0,0,0)
             time.sleep(1)
 
@@ -52,7 +23,35 @@ def stop(data_dist):
         print ("\nEnd of program")
 
 
-def command_2_mode():
+def left(data_dist):
+    global PWM
+    try:
+        PWM.setMotorModel(-1500,-1500,2000,2000)       #Left
+        print ("The car is turning left")
+        time.sleep(1)
+
+        if data_dist < 1:
+            PWM.setMotorModel(0,0,0,0)
+            time.sleep(1)
+
+    except KeyboardInterrupt:
+        PWM.setMotorModel(0,0,0,0)
+        print ("\nEnd of program")
+
+
+def stop(data_dist):
+    global PWM
+    try:
+        PWM.setMotorModel(0,0,0,0)                   #Stop
+        print ("\nEnd of program")
+        time.sleep(1)
+
+    except KeyboardInterrupt:
+        PWM.setMotorModel(0,0,0,0)
+        print ("\nEnd of program")
+
+
+def command_2_mode(PWM):
 
     for i in range(10):
 
@@ -79,4 +78,4 @@ def command_2_mode():
 
 
 if __name__=='__main__':
-    command_2_mode()
+    command_2_mode(PWM)
