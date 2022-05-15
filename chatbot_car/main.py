@@ -52,7 +52,9 @@ def main(model, tokenizer):
                 while input == None:
                     input = audio_2_text(listener)
 
-                if input == 'come here':
+                chat_with_bot(input, model, tokenizer)
+
+                if 'come' in input:
                     PWM.setMotorModel(600,600,600,600) #Forward
                     print ("The car is moving forward")
                     time.sleep(0.1)
@@ -62,7 +64,7 @@ def main(model, tokenizer):
                     PWM.setMotorModel(0,0,0,0) #Stop
                     print ("The car stopped")
 
-                chat_with_bot(input, model, tokenizer)
+                #chat_with_bot(input, model, tokenizer)
 
                 # rotate head
                 print("===direction===")
