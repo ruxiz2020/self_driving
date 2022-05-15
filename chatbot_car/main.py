@@ -8,22 +8,11 @@ import torch
 import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
-from chat import q_n_a
+from chat import q_n_a, tokenizer, model
 
 PWM = Motor()
 ultrasonic = Ultrasonic()
 pwm = Servo()
-
-
-# Transformer model for chat bot conversation
-# model_name = "microsoft/DialoGPT-large"
-# model_name = "microsoft/DialoGPT-medium"
-model_name = "microsoft/DialoGPT-small"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
-
-text_2_sound("Hi dear, let us start a conversation!")
-
 
 
 
