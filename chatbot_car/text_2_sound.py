@@ -16,13 +16,14 @@ def playText(sound_file):
 
     mixer.init()
     mixer.music.load(sound_file)
-    mixer.music.play(999)
-    while mixer.music.get_busy():
+    mixer.music.play()
+    while mixer.music.get_busy() == True:
         continue
     print("Finished playing sound file")
     #playsound.playsound(sound_file, False)
+    mixer.music.stop()
     mixer.quit()
-    exit()
+    #exit()
 
 
 def text_2_sound(text):
