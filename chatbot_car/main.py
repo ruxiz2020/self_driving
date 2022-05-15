@@ -19,14 +19,14 @@ pwm = Servo()
 servo_directions = [[50, 110, 1],
 [110, 50, -1],
 [80, 150, 1],
-150, 80, -1]
+[150, 80, -1]]
 
 
 def main(model, tokenizer):
 
     try:
         while True:
-            for i in range(10):
+            for i in range(20):
 
                 direction = servo_directions[i % 4]
                 #print(direction)
@@ -37,7 +37,7 @@ def main(model, tokenizer):
                 PWM.setMotorModel(400,400,400,400) #Forward
                 print ("The car is moving forward")
 
-                if (dist < 5):
+                if (dist < 3):
                     PWM.setMotorModel(0,0,0,0) #Stop
                     print ("The car stopped")
 
@@ -52,9 +52,13 @@ def main(model, tokenizer):
                 while input == None:
                     input = audio_2_text(listener)
 
-                if input == 'come':
-                    PWM.setMotorModel(400,400,400,400) #Forward
+                if input == 'come here':
+                    PWM.setMotorModel(600,600,600,600) #Forward
                     print ("The car is moving forward")
+
+                if input == 'stop':
+                    PWM.setMotorModel(0,0,0,0) #Stop
+                    print ("The car stopped")
 
                 chat_with_bot(input, model, tokenizer)
 

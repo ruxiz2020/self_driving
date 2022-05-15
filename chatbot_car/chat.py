@@ -56,7 +56,7 @@ if __name__ == '__main__':
     "Musk announced his intentions to purchase Twitter  ",
     "Musk confirmed last week that he would allow former President Donald Trump to return to Twitter  ",
     "Russia has failed to achieve substantial territorial gains ",
-    "Russia initially invaded Ukraine on Feb 24 "]
+    "Russia invaded Ukraine on Feb 24 "]
 
     for i in range(10):
 
