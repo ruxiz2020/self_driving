@@ -29,10 +29,6 @@ def main(model, tokenizer):
 
                 direction = servo_directions[i % 4]
                 print(direction)
-                # rotate head
-                for ss in range(direction[0], direction[1], direction[2]):
-                    pwm.setServoPwm('0', ss)
-                    time.sleep(0.05)
 
                 text_2_sound("I see! ")
 
@@ -46,6 +42,11 @@ def main(model, tokenizer):
                     question = audio_2_text(listener)
 
                 q_n_a(question, model, tokenizer)
+
+                # rotate head
+                for ss in range(direction[0], direction[1], direction[2]):
+                    pwm.setServoPwm('0', ss)
+                    time.sleep(0.05)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0, 0, 0, 0)

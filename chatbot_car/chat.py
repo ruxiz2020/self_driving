@@ -49,11 +49,11 @@ if __name__ == '__main__':
     "They feel good when they see green on the screen",
     "Years of low rates have been rocket fuel for stock prices"]
 
-    questions = ["普京再次为在乌克兰的战争行为辩护，宣称乌克兰拥有核武器 ",
-    "几周前，俄军从基辅撤离，将主要战线移到了乌克兰东部 ",
-    "现在我们正在进入另一个阶段 ",
-    "我们还有独立的媒体，有司法机构 ",
-    "普京先生毁掉了所有民主国家的特征，现在是一个绝对的威权政权 "]
+    questions = ["Elon Musk warned Twitter users that they are being manipulated ",
+    "Musk announced his intentions to purchase Twitter  ",
+    "Musk confirmed last week that he would allow former President Donald Trump to return to Twitter  ",
+    "Russia has failed to achieve substantial territorial gains ",
+    "Russia initially invaded Ukraine on Feb 24 "]
 
     for i in range(10):
 
