@@ -4,9 +4,9 @@ import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
 
-model_name = "microsoft/DialoGPT-large"
+# model_name = "microsoft/DialoGPT-large"
 # model_name = "microsoft/DialoGPT-medium"
-# model_name = "microsoft/DialoGPT-small"
+model_name = "microsoft/DialoGPT-small"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
@@ -39,17 +39,15 @@ def q_n_a(text, model, tokenizer):
 
 if __name__ == '__main__':
 
-    questions = ["Let's have conversations ",
-    "Well, in my eyes you are perfect",
-    "I won't break your heart",
-    "Keep the secrets that you told me",
-    "your love is all you owe me"]
-
     questions = ["The Stock Market Entered a Bear Market ",
     "We already had a mind-boggling bubble ",
     "Still, it’s hard to see things getting much worse ",
     "Trade it at your own risk. ",
-    "They show panic on both sides "]
+    "They show panic on both sides ",
+    "The stock market is not a perfect measure of the real economy.",
+    "Unemployment is low",
+    "They feel good when they see green on the screen",
+    "Years of low rates have been rocket fuel for stock prices"]
 
     questions = ["普京再次为在乌克兰的战争行为辩护，宣称乌克兰拥有核武器 ",
     "几周前，俄军从基辅撤离，将主要战线移到了乌克兰东部 ",

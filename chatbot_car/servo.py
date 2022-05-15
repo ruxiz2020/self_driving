@@ -37,16 +37,16 @@ def test_Servo():
         while True:
             for i in range(50, 110, 1):
                 pwm.setServoPwm('0', i)
-                time.sleep(0.1)
+                time.sleep(0.05)
             for i in range(110, 50, -1):
                 pwm.setServoPwm('0', i)
-                time.sleep(0.1)
+                time.sleep(0.05)
             for i in range(80, 150, 1):
                 pwm.setServoPwm('1', i)
-                time.sleep(0.1)
+                time.sleep(0.05)
             for i in range(150, 80, -1):
                 pwm.setServoPwm('1', i)
-                time.sleep(0.1)
+                time.sleep(0.05)
     except KeyboardInterrupt:
         pwm.setServoPwm('0', 90)
         pwm.setServoPwm('1', 90)
