@@ -31,6 +31,16 @@ def main(model, tokenizer):
                 direction = servo_directions[i % 4]
                 #print(direction)
 
+                dist=ultrasonic.get_distance()   #Get the distance value
+                print(dist)
+
+                PWM.setMotorModel(400,400,400,400) #Forward
+                print ("The car is moving forward")
+
+                if (dist < 5):
+                    PWM.setMotorModel(0,0,0,0) #Stop
+                    print ("The car stopped")
+
                 text_2_sound("hmmm ")
 
                 listener = sr.Recognizer()
@@ -38,11 +48,15 @@ def main(model, tokenizer):
                 listener.energy_threshold = 384
                 listener.dynamic_energy_threshold = True
 
-                question = None
-                while question == None:
-                    question = audio_2_text(listener)
+                input = None
+                while input == None:
+                    input = audio_2_text(listener)
 
-                chat_with_bot(question, model, tokenizer)
+                if input == 'come':
+                    PWM.setMotorModel(400,400,400,400) #Forward
+                    print ("The car is moving forward")
+
+                chat_with_bot(input, model, tokenizer)
 
                 # rotate head
                 print("===direction===")
