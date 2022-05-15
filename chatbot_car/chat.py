@@ -4,8 +4,8 @@ import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
 
-model_name = "microsoft/DialoGPT-large"
-# model_name = "microsoft/DialoGPT-medium"
+# model_name = "microsoft/DialoGPT-large"
+model_name = "microsoft/DialoGPT-medium"
 # model_name = "microsoft/DialoGPT-small"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
@@ -14,7 +14,7 @@ print("Done with training model!  Let us start Q n A!")
 text_2_sound("Hi dear, how are you?")
 
 # chatting 5 times with greedy search
-def q_n_a(text, model, tokenizer):
+def chat_with_bot(text, model, tokenizer):
 
     print("Question:" + text)
 
