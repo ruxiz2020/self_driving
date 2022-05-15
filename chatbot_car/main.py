@@ -10,6 +10,7 @@ import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
 from chat import chat_with_bot, tokenizer, model
+from explain_keyword import TextFromUrl, explain_2_me
 
 PWM = Motor()
 ultrasonic = Ultrasonic()
@@ -66,7 +67,12 @@ def run():
         print ("\nEnd of program")
 
 
-def main(model, tokenizer):
+def main(model, tokenizer, run_model_flag = 'chat'):
+    '''
+    run_model_flag
+        chat: chatbot for random topic chat
+        explain: explain keyword by google search and read the top 1 article found
+    '''
 
     try:
         run()
@@ -81,7 +87,19 @@ def main(model, tokenizer):
             while question == None:
                 question = audio_2_text(listener)
 
-            chat_with_bot(question, model, tokenizer)
+            if run_model_flag == 'chat':
+                chat_with_bot(question, model, tokenizer)
+
+            if run_model_flag == 'explain':
+
+                explain_2_me(question)
+
+                with open('news.txt', 'r') as file:
+                    data = file.read().replace('\n', ' ')
+                print(data)
+
+                text_2_sound(data[:2000])
+
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0, 0, 0, 0)
@@ -93,4 +111,4 @@ if __name__ == '__main__':
 
     print('Car is starting ...')
 
-    main(model, tokenizer)
+    main(model, tokenizer, 'explain')

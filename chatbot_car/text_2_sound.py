@@ -8,6 +8,20 @@ from gtts import gTTS
 # play the converted audio
 import os
 
+from pygame import mixer
+import playsound
+from time import sleep
+
+def playText(sound_file):
+
+    mixer.init()
+    mixer.music.load(sound_file)
+    mixer.music.play(999)
+    while mixer.music.get_busy():
+        sleep(1)
+    print("Finished playing sound file")
+    #playsound.playsound(sound_file, False)
+
 
 def text_2_sound(text):
     # Language in which you want to convert
@@ -49,4 +63,5 @@ def text_2_sound(text):
     myobj.save("read.mp3")
 
     # Playing the converted file
-    os.system("mpg321 read.mp3")
+    #os.system("mpg321 read.mp3")
+    playText("read.mp3")
