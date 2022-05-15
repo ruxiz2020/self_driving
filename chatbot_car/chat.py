@@ -57,7 +57,11 @@ if __name__ == '__main__':
 
     for i in range(10):
 
-        r = sr.Recognizer()
+        listener = sr.Recognizer()
+        # Following two lines are meant to fix error about ALSA
+        listener.energy_threshold = 384
+        listener.dynamic_energy_threshold = True
+
         question = None
         while question == None:
             question = audio_2_text(r)
