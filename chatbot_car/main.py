@@ -37,7 +37,7 @@ def main(model, tokenizer):
                 PWM.setMotorModel(400,400,400,400) #Forward
                 print ("The car is moving forward")
 
-                if (dist < 3):
+                if (dist < 5):
                     PWM.setMotorModel(0,0,0,0) #Stop
                     print ("The car stopped")
 
@@ -56,7 +56,8 @@ def main(model, tokenizer):
                     PWM.setMotorModel(600,600,600,600) #Forward
                     print ("The car is moving forward")
 
-                if input == 'stop':
+                dist=ultrasonic.get_distance()   #Get the distance value
+                if (input == 'stop') or dist < 5:
                     PWM.setMotorModel(0,0,0,0) #Stop
                     print ("The car stopped")
 
