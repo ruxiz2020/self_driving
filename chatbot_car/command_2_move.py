@@ -13,9 +13,24 @@ def forward(data_dist):
         print ("The car is moving forward")
         time.sleep(5)
 
-        if data_dist < 3:
-            PWM.setMotorModel(0,0,0,0)
-            time.sleep(1)
+        #if data_dist < 1:
+        #    PWM.setMotorModel(0,0,0,0)
+        #    time.sleep(1)
+
+    except KeyboardInterrupt:
+        PWM.setMotorModel(0,0,0,0)
+        print ("\nEnd of program")
+
+
+def left(data_dist):
+    try:
+        PWM.setMotorModel(-1500,-1500,2000,2000)       #Left
+        print ("The car is turning left")
+        time.sleep(1)
+
+        #if data_dist < 1:
+        #    PWM.setMotorModel(0,0,0,0)
+        #    time.sleep(1)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
@@ -57,7 +72,9 @@ def command_2_mode():
 
         if command == 'come':
             forward(data_dist)
-        if command == 'stop':
+        elif command == 'left':
+            left(data_dist)
+        elif command == 'stop':
             stop(data_dist)
 
 
