@@ -42,3 +42,7 @@ def command_2_mode():
             forward()
         if command == 'stop':
             stop()
+
+
+if __name__=='__main__':
+    command_2_mode()
