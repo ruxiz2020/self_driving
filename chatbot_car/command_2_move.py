@@ -7,14 +7,12 @@ from Motor import Motor
 PWM=Motor()
 ultrasonic = Ultrasonic()
 
-def forward():
+def forward(data_dist):
     try:
         PWM.setMotorModel(600,600,600,600)       #Forward
         print ("The car is moving forward")
         time.sleep(5)
 
-        data_dist=ultrasonic.get_distance()   #Get the distance value
-        print(data_dist)
         if data_dist < 3:
             PWM.setMotorModel(0,0,0,0)
             time.sleep(1)
@@ -24,11 +22,15 @@ def forward():
         print ("\nEnd of program")
 
 
-def stop():
+def stop(data_dist):
     try:
         PWM.setMotorModel(0,0,0,0)                   #Stop
         print ("\nEnd of program")
         time.sleep(1)
+
+        if data_dist < 3:
+            PWM.setMotorModel(0,0,0,0)
+            time.sleep(1)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0,0,0,0)
@@ -48,10 +50,15 @@ def command_2_mode():
         while command == None:
             command = audio_2_text(listener)
         print(command)
+
+        data_dist=ultrasonic.get_distance()   #Get the distance value
+        print(data_dist)
+
+
         if command == 'come':
-            forward()
+            forward(data_dist)
         if command == 'stop':
-            stop()
+            stop(data_dist)
 
 
 if __name__=='__main__':
