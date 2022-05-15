@@ -4,9 +4,9 @@ import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
 
-# model_name = "microsoft/DialoGPT-large"
+model_name = "microsoft/DialoGPT-large"
 # model_name = "microsoft/DialoGPT-medium"
-model_name = "microsoft/DialoGPT-small"
+# model_name = "microsoft/DialoGPT-small"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
@@ -26,9 +26,9 @@ def q_n_a(text, model, tokenizer):
         max_length=1000,
         pad_token_id=tokenizer.eos_token_id,
         do_sample=True,
-        top_k=150,
-        top_p=0.8,
-        temperature=0.9
+        top_k=100,
+        top_p=0.7,
+        temperature=0.8
     )
     #print the output
     output = tokenizer.decode(chat_history_ids[:, input_ids.shape[-1]:][0], skip_special_tokens=True)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     "Trade it at your own risk. ",
     "They show panic on both sides ",
     "The stock market is not a perfect measure of the real economy.",
-    "Unemployment is low",
+    "Still, Unemployment is low",
     "They feel good when they see green on the screen",
     "Years of low rates have been rocket fuel for stock prices"]
 

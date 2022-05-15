@@ -28,10 +28,13 @@ def main(model, tokenizer):
             for i in range(10):
 
                 direction = servo_directions[i % 4]
+                print(direction)
                 # rotate head
-                for s in range(direction[0], direction[1], direction[2]):
-                    pwm.setServoPwm('0', s)
+                for ss in range(direction[0], direction[1], direction[2]):
+                    pwm.setServoPwm('0', ss)
                     time.sleep(0.05)
+
+                text_2_sound("I see! ")
 
                 listener = sr.Recognizer()
                 # Following two lines are meant to fix error about ALSA
