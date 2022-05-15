@@ -29,7 +29,7 @@ def main(model, tokenizer):
             for i in range(10):
 
                 direction = servo_directions[i % 4]
-                print(direction)
+                #print(direction)
 
                 text_2_sound("hmmm ")
 
@@ -45,6 +45,8 @@ def main(model, tokenizer):
                 chat_with_bot(question, model, tokenizer)
 
                 # rotate head
+                print("===direction===")
+                print(direction)
                 for ss in range(direction[0], direction[1], direction[2]):
                     pwm.setServoPwm('0', ss)
                     time.sleep(0.05)

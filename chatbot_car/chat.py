@@ -19,7 +19,7 @@ def chat_with_bot(text, model, tokenizer):
 
     print("Question:" + text)
 
-    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+    #os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
     # encode the input and add end of string token
     input_ids = tokenizer.encode(text + tokenizer.eos_token, return_tensors="pt")
@@ -69,4 +69,4 @@ if __name__ == '__main__':
         while question == None:
             question = audio_2_text(listener)
 
-        q_n_a(question, model, tokenizer)
+        chat_with_bot(question, model, tokenizer)
