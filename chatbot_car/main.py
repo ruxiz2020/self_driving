@@ -1,84 +1,97 @@
 import time
 from PCA9685 import PCA9685
 from servo import Servo
-from Motor import *
+from Motor import Motor
+from Ultrasonic import Ultrasonic
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+import speech_recognition as sr
+from text_2_sound import text_2_sound
+from audio_2_text import audio_2_text
+from chat import q_n_a
 
-
+PWM = Motor()
+ultrasonic = Ultrasonic()
 pwm = Servo()
 
-def test_Servo():
+
+# Transformer model for chat bot conversation
+# model_name = "microsoft/DialoGPT-large"
+# model_name = "microsoft/DialoGPT-medium"
+model_name = "microsoft/DialoGPT-small"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
+
+text_2_sound("Hi dear, let us start a conversation!")
+
+
+
+
+def main(model, tokenizer):
+
     try:
         while True:
+            distance = ultrasonic.get_distance()
+
+            if (distance < 10): # obstacle in front
+                PWM.setMotorModel(0,0,0,0)   #stop
+                print ("Stop moving")
+                time.sleep(1)
+
+            # listening to conversation input
+            listener = sr.Recognizer()
+            # Following two lines are meant to fix error about ALSA
+            listener.energy_threshold = 384
+            listener.dynamic_energy_threshold = True
+
+            question = None
+            while question == None:
+                question = audio_2_text(listener)
+
+            # move head around
             for i in range(50, 110, 1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.05)
+                q_n_a(question, model, tokenizer)
+
+
+            question = None
+            while question == None:
+                question = audio_2_text(listener)
+
+            # move head around
             for i in range(110, 50, -1):
                 pwm.setServoPwm('0', i)
                 time.sleep(0.05)
+                q_n_a(question, model, tokenizer)
+
+            question = None
+            while question == None:
+                question = audio_2_text(listener)
+
+            # move head around
             for i in range(80, 150, 1):
                 pwm.setServoPwm('1', i)
                 time.sleep(0.05)
+                q_n_a(question, model, tokenizer)
+
+            question = None
+            while question == None:
+                question = audio_2_text(listener)
+            # move head around
             for i in range(150, 80, -1):
                 pwm.setServoPwm('1', i)
                 time.sleep(0.05)
+                q_n_a(question, model, tokenizer)
+
     except KeyboardInterrupt:
-        pwm.setServoPwm('0', 90)
-        pwm.setServoPwm('1', 90)
+        PWM.setMotorModel(0, 0, 0, 0)
         print("\nEnd of program")
-
-
-if __name__ == '__main__':
-    test_Servo()
-
-
-def main():
-
-    try:
-        while True:
-            arr_dist = []
-            for i in range(60, 120, 2):
-                pwm.setServoPwm('0', i)
-                time.sleep(0.01)
-
-                #buzzer.run('0')
-
-                data_dist=ultrasonic.get_distance()   #Get the distance value
-                #print ("When servo is at "+str(i)+" degree")
-                #print ("Obstacle distance is "+str(data)+" CM")
-                arr_dist.append((i, data_dist))
-                print(arr_dist)
-
-                PWM.setMotorModel(400,400,400,400) #Forward
-                print ("The car is moving forward")
-
-                if (i < 90) & (data_dist < 25): # obstacle on the left
-                    PWM.setMotorModel(1200,1200,-800,-800) # turn right
-                    time.sleep(1)
-                    #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
-                    #print("STOPPING!")
-                    #PWM.setMotorModel(0,0,0,0)
-                elif (i >= 90) & (data_dist < 25): # obstacle on the left
-                    PWM.setMotorModel(-800,-800,1200,1200) # turn Left
-                    time.sleep(1)
-                    #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
-                #elif (data_dist < 5): # obstacle in front
-                #    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
-                #    print ("The car is going backwards")
-                #    time.sleep(1)
-                else:
-                    PWM.setMotorModel(400,400,400,400) #Forward
-                    print ("The car is moving forward")
-
-
-    except KeyboardInterrupt:
-        PWM.setMotorModel(0,0,0,0)
-        print ("\nEnd of program")
 
 
 # Main program logic follows:
 if __name__ == '__main__':
 
-    print ('Car is starting ...')
-    import sys
+    print('Car is starting ...')
 
-    run()
+    main(model, tokenizer)
