@@ -5,6 +5,7 @@ from Motor import Motor
 from Ultrasonic import Ultrasonic
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+import os
 import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
@@ -30,7 +31,7 @@ def main(model, tokenizer):
                 direction = servo_directions[i % 4]
                 print(direction)
 
-                text_2_sound("I see! ")
+                text_2_sound("hmmm ")
 
                 listener = sr.Recognizer()
                 # Following two lines are meant to fix error about ALSA

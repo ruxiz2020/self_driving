@@ -1,5 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+import os
 import speech_recognition as sr
 from text_2_sound import text_2_sound
 from audio_2_text import audio_2_text
@@ -17,6 +18,8 @@ text_2_sound("Hi dear, how are you?")
 def chat_with_bot(text, model, tokenizer):
 
     print("Question:" + text)
+
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
     # encode the input and add end of string token
     input_ids = tokenizer.encode(text + tokenizer.eos_token, return_tensors="pt")
