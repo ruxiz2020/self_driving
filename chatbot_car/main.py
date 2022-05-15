@@ -15,62 +15,33 @@ ultrasonic = Ultrasonic()
 pwm = Servo()
 
 
+servo_directions = [[50, 110, 1],
+[110, 50, -1],
+[80, 150, 1],
+150, 80, -1]
+
 
 def main(model, tokenizer):
 
     try:
         while True:
-            distance = ultrasonic.get_distance()
+            for i in range(10):
 
-            if (distance < 10): # obstacle in front
-                PWM.setMotorModel(0,0,0,0)   #stop
-                print ("Stop moving")
-                time.sleep(1)
+                direction = servo_directions[i % 4]
+                # rotate head
+                for s in range(direction[0], direction[1], direction[2]):
+                    pwm.setServoPwm('0', s)
+                    time.sleep(0.05)
 
-            # listening to conversation input
-            listener = sr.Recognizer()
-            # Following two lines are meant to fix error about ALSA
-            listener.energy_threshold = 384
-            listener.dynamic_energy_threshold = True
+                listener = sr.Recognizer()
+                # Following two lines are meant to fix error about ALSA
+                listener.energy_threshold = 384
+                listener.dynamic_energy_threshold = True
 
-            question = None
-            while question == None:
-                question = audio_2_text(listener)
+                question = None
+                while question == None:
+                    question = audio_2_text(listener)
 
-            # move head around
-            for i in range(50, 110, 1):
-                pwm.setServoPwm('0', i)
-                time.sleep(0.05)
-                q_n_a(question, model, tokenizer)
-
-
-            question = None
-            while question == None:
-                question = audio_2_text(listener)
-
-            # move head around
-            for i in range(110, 50, -1):
-                pwm.setServoPwm('0', i)
-                time.sleep(0.05)
-                q_n_a(question, model, tokenizer)
-
-            question = None
-            while question == None:
-                question = audio_2_text(listener)
-
-            # move head around
-            for i in range(80, 150, 1):
-                pwm.setServoPwm('1', i)
-                time.sleep(0.05)
-                q_n_a(question, model, tokenizer)
-
-            question = None
-            while question == None:
-                question = audio_2_text(listener)
-            # move head around
-            for i in range(150, 80, -1):
-                pwm.setServoPwm('1', i)
-                time.sleep(0.05)
                 q_n_a(question, model, tokenizer)
 
     except KeyboardInterrupt:
