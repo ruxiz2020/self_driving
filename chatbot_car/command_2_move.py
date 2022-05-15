@@ -47,7 +47,7 @@ def command_2_mode():
         command = None
         while command == None:
             command = audio_2_text(listener)
-
+        print(command)
         if command == 'come':
             forward()
         if command == 'stop':
