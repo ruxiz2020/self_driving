@@ -21,6 +21,7 @@ def playText(sound_file):
         sleep(1)
     print("Finished playing sound file")
     #playsound.playsound(sound_file, False)
+    mixer.quit()
 
 
 def text_2_sound(text):
