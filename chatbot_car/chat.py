@@ -1,6 +1,8 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+import speech_recognition as sr
 from text_2_sound import text_2_sound
+from audio_2_text import audio_2_text
 
 model_name = "microsoft/DialoGPT-large"
 # model_name = "microsoft/DialoGPT-medium"
@@ -8,6 +10,8 @@ model_name = "microsoft/DialoGPT-large"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
+print("Done with training model!  Let us start Q n A!")
+text_2_sound("Hi dear, how are you?")
 
 # chatting 5 times with greedy search
 def q_n_a(text, model, tokenizer):
@@ -22,9 +26,9 @@ def q_n_a(text, model, tokenizer):
         max_length=1000,
         pad_token_id=tokenizer.eos_token_id,
         do_sample=True,
-        top_k=200,
-        top_p=0.5,
-        temperature=0.8
+        top_k=150,
+        top_p=0.8,
+        temperature=0.9
     )
     #print the output
     output = tokenizer.decode(chat_history_ids[:, input_ids.shape[-1]:][0], skip_special_tokens=True)
@@ -41,7 +45,7 @@ if __name__ == '__main__':
     "Keep the secrets that you told me",
     "your love is all you owe me"]
 
-    questions = ["The Stock Market Nearly Entered a Bear Market ",
+    questions = ["The Stock Market Entered a Bear Market ",
     "We already had a mind-boggling bubble ",
     "Still, it’s hard to see things getting much worse ",
     "Trade it at your own risk. ",
@@ -53,5 +57,11 @@ if __name__ == '__main__':
     "我们还有独立的媒体，有司法机构 ",
     "普京先生毁掉了所有民主国家的特征，现在是一个绝对的威权政权 "]
 
-    for q in questions:
-        q_n_a(q, model, tokenizer)
+    for i in range(10):
+
+        r = sr.Recognizer()
+        question = None
+        while question == None:
+            question = audio_2_text(r)
+
+        q_n_a(question, model, tokenizer)
