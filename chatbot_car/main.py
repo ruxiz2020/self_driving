@@ -22,56 +22,66 @@ servo_directions = [[50, 110, 1],
 [150, 80, -1]]
 
 
-def main(model, tokenizer):
+def run():
 
     try:
         while True:
-            for i in range(20):
+            arr_dist = []
+            for i in range(60, 120, 2):
+                pwm.setServoPwm('0', i)
+                time.sleep(0.01)
 
-                direction = servo_directions[i % 4]
-                #print(direction)
+                #buzzer.run('0')
 
-                dist=ultrasonic.get_distance()   #Get the distance value
-                print(dist)
+                data_dist=ultrasonic.get_distance()   #Get the distance value
+                #print ("When servo is at "+str(i)+" degree")
+                #print ("Obstacle distance is "+str(data)+" CM")
+                arr_dist.append((i, data_dist))
+                print(arr_dist)
 
                 PWM.setMotorModel(400,400,400,400) #Forward
                 print ("The car is moving forward")
 
-                if (dist < 5):
-                    PWM.setMotorModel(0,0,0,0) #Stop
-                    print ("The car stopped")
-
-                text_2_sound("hmmm ")
-
-                listener = sr.Recognizer()
-                # Following two lines are meant to fix error about ALSA
-                listener.energy_threshold = 384
-                listener.dynamic_energy_threshold = True
-
-                input = None
-                while input == None:
-                    input = audio_2_text(listener)
-
-                chat_with_bot(input, model, tokenizer)
-
-                if 'come' in input:
-                    PWM.setMotorModel(600,600,600,600) #Forward
+                if (i < 90) & (data_dist < 25): # obstacle on the left
+                    PWM.setMotorModel(1200,1200,-800,-800) # turn right
+                    time.sleep(1)
+                    #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
+                    #print("STOPPING!")
+                    #PWM.setMotorModel(0,0,0,0)
+                elif (i >= 90) & (data_dist < 25): # obstacle on the left
+                    PWM.setMotorModel(-800,-800,1200,1200) # turn Left
+                    time.sleep(1)
+                    #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
+                #elif (data_dist < 5): # obstacle in front
+                #    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
+                #    print ("The car is going backwards")
+                #    time.sleep(1)
+                else:
+                    PWM.setMotorModel(400,400,400,400) #Forward
                     print ("The car is moving forward")
-                    time.sleep(0.1)
 
-                dist=ultrasonic.get_distance()   #Get the distance value
-                if (input == 'stop') or dist < 5:
-                    PWM.setMotorModel(0,0,0,0) #Stop
-                    print ("The car stopped")
 
-                #chat_with_bot(input, model, tokenizer)
+    except KeyboardInterrupt:
+        PWM.setMotorModel(0,0,0,0)
+        print ("\nEnd of program")
 
-                # rotate head
-                print("===direction===")
-                print(direction)
-                for ss in range(direction[0], direction[1], direction[2]):
-                    pwm.setServoPwm('0', ss)
-                    time.sleep(0.05)
+
+def main(model, tokenizer):
+
+    try:
+        run()
+        for i in range(10):
+
+            listener = sr.Recognizer()
+            # Following two lines are meant to fix error about ALSA
+            listener.energy_threshold = 384
+            listener.dynamic_energy_threshold = True
+
+            question = None
+            while question == None:
+                question = audio_2_text(listener)
+
+            chat_with_bot(question, model, tokenizer)
 
     except KeyboardInterrupt:
         PWM.setMotorModel(0, 0, 0, 0)
