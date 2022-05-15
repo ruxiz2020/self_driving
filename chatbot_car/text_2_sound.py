@@ -18,10 +18,11 @@ def playText(sound_file):
     mixer.music.load(sound_file)
     mixer.music.play(999)
     while mixer.music.get_busy():
-        sleep(1)
+        continue
     print("Finished playing sound file")
     #playsound.playsound(sound_file, False)
     mixer.quit()
+    exit()
 
 
 def text_2_sound(text):
