@@ -39,25 +39,25 @@ def run():
                 arr_dist.append((i, data_dist))
                 print(arr_dist)
 
-                PWM.setMotorModel(400,400,400,400) #Forward
+                PWM.setMotorModel(600,600,600,600) #Forward
                 print ("The car is moving forward")
 
-                if (i < 90) & (data_dist < 25): # obstacle on the left
-                    PWM.setMotorModel(1200,1200,-800,-800) # turn right
-                    time.sleep(1)
+                #if (i < 90) & (data_dist < 25): # obstacle on the left
+                #    PWM.setMotorModel(1200,1200,-800,-800) # turn right
+                #    time.sleep(1)
                     #PWM.setMotorModel(-1500,-1500,1500,1500) # turn Left
                     #print("STOPPING!")
                     #PWM.setMotorModel(0,0,0,0)
-                elif (i >= 90) & (data_dist < 25): # obstacle on the left
-                    PWM.setMotorModel(-800,-800,1200,1200) # turn Left
-                    time.sleep(1)
-                    #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
-                #elif (data_dist < 5): # obstacle in front
-                #    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
-                #    print ("The car is going backwards")
+                #elif (i >= 90) & (data_dist < 25): # obstacle on the left
+                #    PWM.setMotorModel(-800,-800,1200,1200) # turn Left
                 #    time.sleep(1)
+                    #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
+                if (data_dist < 5): # obstacle in front
+                    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
+                    print ("The car is going backwards")
+                    time.sleep(1)
                 else:
-                    PWM.setMotorModel(400,400,400,400) #Forward
+                    PWM.setMotorModel(600,600,600,600) #Forward
                     print ("The car is moving forward")
 
 
