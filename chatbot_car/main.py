@@ -53,7 +53,7 @@ def run():
                 #    time.sleep(1)
                     #PWM.setMotorModel(1500,1500,-1500,-1500) # turn right
                 if (data_dist < 5): # obstacle in front
-                    PWM.setMotorModel(-1000,-1000,-1000,-1000)   #Back
+                    PWM.setMotorModel(0,0,0,0)   #Back
                     print ("The car is going backwards")
                     time.sleep(1)
                 else:
