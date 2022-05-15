@@ -11,7 +11,7 @@ def forward():
     try:
         PWM.setMotorModel(600,600,600,600)       #Forward
         print ("The car is moving forward")
-        time.sleep(1)
+        #time.sleep(1)
 
         data_dist=ultrasonic.get_distance()   #Get the distance value
         print(data_dist)
