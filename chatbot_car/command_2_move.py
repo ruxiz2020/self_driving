@@ -12,7 +12,7 @@ def forward(data_dist):
     try:
         PWM.setMotorModel(700,700,700,700)       #Forward
         print ("The car is moving forward")
-        time.sleep(8)
+        time.sleep(4)
 
         if data_dist < 1:
             PWM.setMotorModel(0,0,0,0)
